@@ -10,9 +10,13 @@ class TestGame(unittest.TestCase):
         self.assertEqual(len(grid), 9)
         for letter in grid:
             self.assertIn(letter, string.ascii_uppercase)
-    def test_is_valid(self):
-        new_game = Game()
-        grid = new_game.grid
-        new_game.grid = ["O", "Q", "U", "W", "R", "B", "A", "Z", "E"]
-        new_game.is_valid("BAROQUE")
-        self.assertEqual(new_game.is_valid("BAROQUE"),True)
+    def is_valid(self, word):
+        if not word:
+            return False
+        letters = self.grid.copy() # Consume letters from the grid
+        for letter in word:
+            if letter in letters:
+                letters.remove(letter)
+            else:
+                return False
+        return True
